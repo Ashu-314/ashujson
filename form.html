@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Enrollment Form</title>
+</head>
+<body>
+    <h1>Student Enrollment Form</h1>
+    <form id="enrollmentForm">
+        <label for="rollNo">Roll No:</label>
+        <input type="text" id="rollNo" name="rollNo" required readonly>
+
+           <label for="fullName">Full Name:</label>
+           <input type="text" id="fullName" name="fullName" required>
+
+        <label for="class">Class:</label>
+        <input type="text" id="class" name="class" required>
+
+            <label for="birthDate">Birth Date:</label>
+            <input type="date" id="birthDate" name="birthDate" required>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" required></textarea>
+
+          <label for="enrollmentDate">Enrollment Date:</label>
+          <input type="date" id="enrollmentDate" name="enrollmentDate" required>
+
+        <button type="button" id="saveBtn" onclick="saveData()">Save</button>
+        <button type="button" id="updateBtn" onclick="updateData()" disabled>Update</button>
+        <button type="button" id="resetBtn" onclick="resetForm()">Reset</button>
+    </form>
+
+    <script>
+
+        // Function to enable Save and Reset buttons when Roll No is entered by the user for clearance 
+
+        function enableSaveButton() {
+            const rollNoInput = document.getElementById('rollNo');
+            const saveBtn = document.getElementById('saveBtn');
+            const resetBtn = document.getElementById('resetBtn');
+
+            if (rollNoInput.value.trim() !== '') {
+                saveBtn.disabled = false;
+                resetBtn.disabled = false;
+            } else
+             {
+                saveBtn.disabled = true;
+                resetBtn.disabled = true;
+            }
+        }
+
+                          // Function to save data (you need to implement server-side logic here)
+        function saveData()
+         {
+                                                                     // Retrieve data from the form fields
+             const rollNo = document.getElementById('rollNo').value;
+            const fullName = document.getElementById('fullName').value;
+              const className = document.getElementById('class').value;
+            const birthDate = document.getElementById('birthDate').value;
+                const address = document.getElementById('address').value;
+            const enrollmentDate = document.getElementById('enrollmentDate').value;
+
+            // Send data to the server to save in the database
+            // we should make an AJAX request or submit a form to your server here then
+
+            // after saving we have to reset
+
+            resetForm();
+        }
+
+        // Function to update data (you need to implement server-side logic here)
+        function updateData() {
+            
+            const rollNo = document.getElementById('rollNo').value;
+            const fullName = document.getElementById('fullName').value;
+            const className = document.getElementById('class').value;
+            const birthDate = document.getElementById('birthDate').value;
+            const address = document.getElementById('address').value;
+            const enrollmentDate = document.getElementById('enrollmentDate').value;
+
+            // Send data to the server to update in the database
+            // You should make an AJAX request or submit a form to your server here
+
+            // After successfully updating data, you can reset the form
+            resetForm();
+        }
+
+        // Function to reset the form
+        function resetForm() {
+            const form = document.getElementById('enrollmentForm');
+            form.reset();
+            enableSaveButton();
+            document.getElementById('updateBtn').disabled = true;
+        }
+
+        // Listen for changes in the Roll No field to enable/disable buttons
+        document.getElementById('rollNo').addEventListener('input', enableSaveButton);
+    </script>
+</body>
+</html>
